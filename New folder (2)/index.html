@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عشان خاطر دلوعتي أية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2b0818, #58122d, #1a0510);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* القلوب المتطايرة في الخلفية */
+        .heart-bg {
+            position: fixed;
+            top: -10%;
+            font-size: 20px;
+            color: rgba(255, 105, 180, 0.6);
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* مشغل الصوت */
+        .music-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            border-radius: 20px;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .music-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            color: #ffb6c1;
+            font-weight: bold;
+        }
+
+        .music-btn {
+            background: #ff3366;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.05);
+            background: #ff1a53;
+        }
+
+        /* العناوين */
+        h1 {
+            font-size: 32px;
+            color: #ff80bf;
+            text-shadow: 0 0 15px rgba(255, 128, 191, 0.5);
+            margin-top: 10px;
+            font-weight: 900;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #ffd1dc;
+            margin-bottom: 10px;
+        }
+
+        /* الخانة المخصصة للاعتذار */
+        .apology-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid #ff4d88;
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 25px 20px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(255, 77, 136, 0.25);
+            position: relative;
+        }
+
+        .apology-title {
+            font-size: 22px;
+            color: #ff6699;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .apology-text {
+            font-size: 19px;
+            line-height: 2;
+            color: #ffffff;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-align: justify;
+            text-align-last: center;
+        }
+
+        /* أزرار التفاعل */
+        .buttons-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: 15px;
+            position: relative;
+            min-height: 70px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(45deg, #00c853, #b2ff59);
+            color: #003300;
+            font-size: 20px;
+            font-weight: 900;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 200, 83, 0.4);
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 200, 83, 0.6);
+        }
+
+        .btn-no {
+            background: linear-gradient(45deg, #ff1744, #ff616f);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 23, 68, 0.4);
+            transition: all 0.2s ease;
+            position: relative;
+            z-index: 4;
+        }
+
+        /* كروت الوعود */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #ff6699;
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        .card-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 16px;
+            color: #ffe6ed;
+            line-height: 1.6;
+        }
+
+        /* نافذة الاحتفال بالواتساب */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #4a0026, #1f0010);
+            border: 2px solid #ff3366;
+            border-radius: 30px;
+            padding: 35px 25px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(255, 51, 102, 0.5);
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal h2 {
+            font-size: 28px;
+            color: #ff80bf;
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+            font-size: 18px;
+            color: #ffffff;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+            background: #1ebc57;
+        }
+
+        /* احتفال القلوب المتساقطة عند المصالحة */
+        .confetti-heart {
+            position: fixed;
+            font-size: 30px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 200;
+            animation: floatUp 3s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgSong" loop src="song.mp3"></audio>
+
+    <div class="container">
+        
+        <!-- مشغل الأغنية -->
+        <div class="music-card">
+            <div class="music-info">
+                <span>🎵</span>
+                <span>أغنيتنا الخاصة</span>
+            </div>
+            <button class="music-btn" id="playBtn" onclick="toggleMusic()">تشغيل الأغنية 💖</button>
+        </div>
+
+        <!-- العنوان -->
+        <h1>عشان خاطر دلوعتي أية ❤️</h1>
+        <div class="subtitle">موقع مخصوص عشان اعتذر لأغلى حاجة في حياتي</div>
+
+        <!-- خانة الاعتذار المخصصة -->
+        <div class="apology-box">
+            <div class="apology-title">رسالة اعتذار من قلبي 💕</div>
+            <div class="apology-text">
+                انا اسف اني زعلتك و حقك عليا والله انا مكنتش اقصد انا بس كنت بهزر عادي والله لما زعقت اقسم بالله يا حبيبي يارب ما تكوني زعلانة مني و تصلحيني و حاضر والله معنتش هزعق تاني سواء بهزار او من غير هزار وانا مش مستعد ع زعلك و خسارتك ي حبيبي والله بحبك و اتمنى نتصالح
+            </div>
+        </div>
+
+        <!-- الأزرار التفاعلية -->
+        <div class="buttons-group">
+            <button class="btn-yes" id="yesBtn" onclick="acceptApology()">سامحتك خلاص ❤️</button>
+            <button class="btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">لسه زعلانة 🥺</button>
+        </div>
+
+        <!-- كروت الوعود -->
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">💖</div>
+                <div class="card-text">اوعدك هفضل احبك واهتم بيكي وادلعك دايماً وما ازعلكي تاني ابداً</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">👑</div>
+                <div class="card-text">انتي الملكة والطفلة والدلوعة الوحيدة اللي في قلبي وحياتي كلها</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌸</div>
+                <div class="card-text">ضحكتك بالدنيا كلها وما اقدرش اعيش وانتي زعلانة مني لحظة واحدة</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- نافذة الواتساب عند المصالحة -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <h2>يا احلى حاجة حصلتلي 💕</h2>
+            <p>بحبك اوي وشكراً انك سامحتيني يا دلوعتي يا اغلى أية في الدنيا كلها</p>
+            <a href="https://wa.me/201095904401?text=انا%20صالحتك%20يا%20حبيبي%20خلاص%20وبحبك" target="_blank" class="whatsapp-btn">
+                ابعتيلي على واتساب انك صالحتيني 💬
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // خلفية القلوب الطائرة
+        function createHearts() {
+            const hearts = ['❤️', '💖', '💕', '💗', '💓'];
+            for(let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-bg';
+                heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heart.style.delay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                document.body.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // تشغيل وإيقاف الأغنية
+        const audio = document.getElementById('bgSong');
+        const playBtn = document.getElementById('playBtn');
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerText = 'إيقاف الأغنية ⏸️';
+            } else {
+                audio.pause();
+                playBtn.innerText = 'تشغيل الأغنية 💖';
+            }
+        }
+
+        // تحريك زر لسه زعلانة
+        let noCount = 0;
+        const noTexts = [
+            'لسه زعلانة 🥺',
+            'طب فكري تاني 🙈',
+            'عشان خاطري خلاص 💓',
+            'والله ما اقصد 💕',
+            'سامحيني بقى 🥺',
+            'بحبك والله 💖'
+        ];
+
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            
+            // تكبير زر سامحتك
+            let currentScale = 1 + (noCount * 0.15);
+            yesBtn.style.transform = `scale(${currentScale})`;
+
+            // تحريك زر لسه زعلانة
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 100);
+            
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+
+            noCount++;
+            btn.innerText = noTexts[noCount % noTexts.length];
+        }
+
+        // عند الترحيب والمصالحة
+        function acceptApology() {
+            // إطلاق القلوب
+            for(let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'confetti-heart';
+                    heart.innerText = ['❤️', '💖', '💕', '💗', '🥰'][Math.floor(Math.random() * 5)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 3000);
+                }, i * 50);
+            }
+
+            // إظهار النافذة
+            setTimeout(() => {
+                document.getElementById('successModal').style.display = 'flex';
+            }, 800);
+        }
+    </script>
+</body>
+</html>
